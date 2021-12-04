@@ -20,7 +20,7 @@ set(PSOURCE_FILES
 # Create code from a list of Qt designer ui files. 
 # Options may be given to uic, such as those found when executing "uic -help"
 # You also need to: set(CMAKE_AUTOUIC OFF)
-qt5_wrap_ui(UI_HEADERS ${UI_FILES})
+qt6_wrap_ui(UI_HEADERS ${UI_FILES})
 
 set(PROJECT_SOURCES
     ${PSOURCE_FILES}
@@ -49,7 +49,9 @@ else()
 endif()
 
 target_link_libraries(${This} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(${This} PUBLIC opengl32)
+target_link_libraries(${This} PRIVATE Qt${QT_VERSION_MAJOR}::OpenGLWidgets)
+target_link_libraries(${This} PUBLIC ${OPENGL_LIBRARY})
+
 target_include_directories(${This} PUBLIC include)
 
 set_target_properties(${This} PROPERTIES
